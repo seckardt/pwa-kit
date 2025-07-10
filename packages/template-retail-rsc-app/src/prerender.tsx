@@ -5,6 +5,7 @@ import {
   unstable_RSCStaticRouter as RSCStaticRouter,
 } from "react-router";
 import bootstrapScriptContent from "virtual:vite-rsc/bootstrap-script-content";
+import { Provider } from "./components/ui/provider";
 
 export async function prerender(
   request: Request,
@@ -24,7 +25,9 @@ export async function prerender(
         payload.type === "render" ? await payload.formState : undefined;
 
       return await renderHTMLToReadableStream(
-        <RSCStaticRouter getPayload={getPayload} />,
+        <Provider>
+          <RSCStaticRouter getPayload={getPayload} />
+        </Provider>,
         {
           bootstrapScriptContent,
           // @ts-expect-error - no types for this yet

@@ -1,12 +1,10 @@
 import rsc from "@hiogawa/vite-rsc/plugin";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 
 export default defineConfig({
   plugins: [
-    tailwindcss(),
     react(),
     rsc({
       entries: {
@@ -17,4 +15,17 @@ export default defineConfig({
     }),
     devtoolsJson(),
   ],
+  optimizeDeps: {
+    include: [
+      "@chakra-ui/react", 
+      "react-icons",
+      "next-themes",
+    ],
+  },
+  ssr: {
+    noExternal: ["@chakra-ui/react", "react-icons", "next-themes"],
+  },
+  define: {
+    global: "globalThis",
+  },
 });
