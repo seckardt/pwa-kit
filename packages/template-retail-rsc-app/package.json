@@ -4,37 +4,35 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "cross-env NODE_ENV=development vite",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=development vite --port 5173",
+    "start": "cross-env NODE_ENV=production vite preview --port 5173",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.3.0",
-    "@emotion/react": "^11.10.6",
-    "@mjackson/node-fetch-server": "0.7.0",
-    "compression": "^1.8.0",
-    "cross-env": "^7.0.3",
-    "express": "^5.1.0",
-    "react": "0.0.0-experimental-06e89951-20250620",
-    "react-dom": "0.0.0-experimental-06e89951-20250620",
+    "@tanstack/react-query": "^5.83.0",
+    "client-only": "latest",
+    "commerce-sdk-isomorphic": "^3.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
-    "react-router": "0.0.0-experimental-14b5858e8"
+    "react-router": "0.0.0-experimental-23decd7bc",
+    "server-only": "latest",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
-    "@hiogawa/vite-rsc": "0.4.4",
-    "@types/compression": "^1.8.1",
-    "@types/express": "^5.0.3",
+    "@react-router/dev": "0.0.0-experimental-23decd7bc",
+    "@tailwindcss/vite": "^4.1.11",
     "@types/node": "^24.0.3",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.5.2",
+    "@vitejs/plugin-react": "^4.6.0",
+    "@vitejs/plugin-rsc": "^0.4.12",
+    "cross-env": "^7.0.3",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5",
-    "vite-plugin-devtools-json": "0.2.0"
+    "vite": "^7.0.4",
+    "vite-plugin-devtools-json": "^0.2.1"
   },
   "overrides": {
-    "react": "0.0.0-experimental-06e89951-20250620",
-    "react-dom": "0.0.0-experimental-06e89951-20250620",
-    "react-router": "0.0.0-experimental-14b5858e8"
+    "react-router": "0.0.0-experimental-23decd7bc"
   }
 }
