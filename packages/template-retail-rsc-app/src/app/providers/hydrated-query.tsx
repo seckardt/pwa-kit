@@ -1,13 +1,13 @@
 'use client'
 
-import type {PropsWithChildren} from 'react'
+import type {PropsWithChildren, ReactElement} from 'react'
 import {type DehydratedState, HydrationBoundary, QueryClientProvider} from '@tanstack/react-query'
-import {getQueryClient} from '@/lib/api/commerce-client'
+import {getQueryClient} from '@/app/utils/api/commerce-client.client'
 
 export default function HydratedQueryProvider({
     children,
     state
-}: PropsWithChildren<{state: DehydratedState}>) {
+}: PropsWithChildren<{state: DehydratedState}>): ReactElement {
     const queryClient = getQueryClient()
     return (
         <QueryClientProvider client={queryClient}>

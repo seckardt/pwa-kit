@@ -1,5 +1,5 @@
-import type {PropsWithChildren} from 'react'
-import {createServerContext} from '@/lib/serverContext'
+import type {PropsWithChildren, ReactElement} from 'react'
+import {createServerContext} from '@/app/utils/serverContext'
 import type {CommerceContext} from './commerce'
 
 export const CommerceServerContext = createServerContext<CommerceContext>({} as CommerceContext)
@@ -7,7 +7,7 @@ export const CommerceServerContext = createServerContext<CommerceContext>({} as 
 export default function CommerceServerProvider({
     children,
     context
-}: PropsWithChildren<{context: CommerceContext}>) {
+}: PropsWithChildren<{context: CommerceContext}>): ReactElement {
     return (
         <CommerceServerContext.Provider value={context}>{children}</CommerceServerContext.Provider>
     )

@@ -1,12 +1,19 @@
 import {type PropsWithChildren} from 'react'
-import {data, type LoaderFunctionArgs, Outlet, type UNSAFE_DataWithResponseInit} from 'react-router'
+import {
+    data,
+    type LoaderFunctionArgs,
+    Outlet,
+    ScrollRestoration,
+    type UNSAFE_DataWithResponseInit
+} from 'react-router'
 import {ServerHmr} from '../../react-router-vite/server-hmr'
 import CommerceProvider from '@/app/providers/commerce'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
-import {getCommerceApiToken} from '@/lib/api/commerce-api'
-import DumpError from './error'
-import './root.css'
+import Header from '@/app/components/header'
+import Footer from '@/app/components/footer'
+import {getCommerceApiToken} from '@/app/utils/api/commerce-api'
+import DumpError from './routes/error'
+import Loading from './routes/loading'
+import './routes/root.css'
 
 type LoaderProps = {
     session: Record<string, any>
@@ -42,16 +49,25 @@ export function Layout({children}: PropsWithChildren) {
                 <title>NextGen PWA Kit Store</title>
             </head>
             <body className="antialiased flex flex-col min-h-screen">
-                {children}
+                {/* Find a way to memoize the dehydrated state */}
+                {/*<HydratedQueryProvider state={dehydrate(getQueryClient())}>*/}
+                    {children}
+                {/*</HydratedQueryProvider>*/}
                 {import.meta.env.DEV ? <ServerHmr /> : null}
             </body>
         </html>
     )
 }
 
+export function ErrorBoundary() {
+    return <DumpError />
+}
+
 export default function App({loaderData: {session}}: {loaderData: LoaderProps}) {
     return (
         <CommerceProvider context={{session}}>
+            <Loading />
+            <ScrollRestoration/>
             <Header />
             <main className="flex-grow pt-8">
                 <Outlet />
@@ -59,8 +75,4 @@ export default function App({loaderData: {session}}: {loaderData: LoaderProps}) 
             <Footer />
         </CommerceProvider>
     )
-}
-
-export function ErrorBoundary() {
-    return <DumpError />
 }

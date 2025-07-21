@@ -7,10 +7,13 @@ import {reactRouter} from './react-router-vite/plugin'
 import {defineConfig} from 'vite'
 import devtoolsJson from 'vite-plugin-devtools-json'
 
+/**
+ * @see {@link https://vite.dev/config/}
+ */
 export default defineConfig({
     server: {
         proxy: {
-            '/mobify/proxy/api': 'http://localhost:3000',
+            '/mobify/proxy/api': 'http://localhost:3000'
         }
     },
     plugins: [

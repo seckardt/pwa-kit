@@ -1,13 +1,15 @@
 'use client'
 
-import {type PropsWithChildren, createContext} from 'react'
+import {createContext, type PropsWithChildren, type ReactElement} from 'react'
 import type {CommerceContext} from './commerce'
 
-export const CommerceClientContext = createContext<CommerceContext>({} as CommerceContext);
+export const CommerceClientContext = createContext<CommerceContext>({} as CommerceContext)
 
 export default function CommerceClientProvider({
     children,
     context
-}: PropsWithChildren<{context: CommerceContext}>) {
-    return <CommerceClientContext.Provider value={context}>{children}</CommerceClientContext.Provider>
+}: PropsWithChildren<{context: CommerceContext}>): ReactElement {
+    return (
+        <CommerceClientContext.Provider value={context}>{children}</CommerceClientContext.Provider>
+    )
 }
