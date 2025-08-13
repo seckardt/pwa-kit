@@ -1,5 +1,6 @@
 import type {ReactElement} from 'react'
 import {Link} from 'react-router'
+import {Button} from '@/components/ui/button'
 
 export default function Hero({
     title,
@@ -30,12 +31,9 @@ export default function Hero({
 
                             {subtitle && <p className="text-lg text-gray-700 mb-8">{subtitle}</p>}
 
-                            <Link
-                                to={ctaLink}
-                                className="inline-block text-white bg-blue-600 hover:bg-blue-700 transition-colors py-3 px-8 rounded-md font-medium"
-                            >
-                                {ctaText}
-                            </Link>
+                            <Button asChild className="text-xl p-6">
+                                <Link to={ctaLink}>{ctaText}</Link>
+                            </Button>
                         </div>
                     </div>
 

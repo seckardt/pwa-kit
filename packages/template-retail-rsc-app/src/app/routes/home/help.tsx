@@ -1,5 +1,6 @@
 import type {ReactElement} from 'react'
 import {Link} from 'react-router'
+import {Button} from '@/components/ui/button'
 
 export default function Help(): ReactElement {
     return (
@@ -15,12 +16,9 @@ export default function Help(): ReactElement {
                         They will get you to the right place.
                     </p>
                     <div className="mt-8">
-                        <Link
-                            to="/contact"
-                            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                        >
-                            Contact Us
-                        </Link>
+                        <Button asChild className="text-xl p-6">
+                            <Link to="/contact">Contact Us</Link>
+                        </Button>
                     </div>
                 </div>
             </div>

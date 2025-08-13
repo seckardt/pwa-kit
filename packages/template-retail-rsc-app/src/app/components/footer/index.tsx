@@ -1,6 +1,7 @@
 import type {ReactElement} from 'react'
 import {Link} from 'react-router'
-import {Facebook, Instagram, TwitterX, Youtube} from '@/app/components/icons'
+import {SiFacebook, SiInstagram, SiX, SiYoutube} from '@icons-pack/react-simple-icons'
+import Signup from './signup'
 
 export default function Footer(): ReactElement {
     return (
@@ -60,54 +61,37 @@ export default function Footer(): ReactElement {
 
                     {/* Connect */}
                     <div>
-                        <h3 className="text-lg text-white font-semibold mb-4">Connect</h3>
-                        <div className="flex space-x-4">
+                        <Signup />
+
+                        <div className="flex mt-6 space-x-3">
                             <a
                                 href="https://youtube.com/channel/UCSTGHqzR1Q9yAVbiS3dAFHg"
                                 aria-label="Youtube"
                                 className="text-white hover:underline"
                             >
-                                <Youtube />
+                                <SiYoutube />
                             </a>
                             <a
                                 href="https://instagram.com/commercecloud"
                                 aria-label="Instagram"
                                 className="text-white hover:underline"
                             >
-                                <Instagram />
+                                <SiInstagram />
                             </a>
                             <a
                                 href="https://x.com/CommerceCloud"
                                 aria-label="X"
                                 className="text-white hover:underline"
                             >
-                                <TwitterX />
+                                <SiX />
                             </a>
                             <a
                                 href="https://facebook.com/CommerceCloud/"
                                 aria-label="Facebook"
                                 className="text-white hover:underline"
                             >
-                                <Facebook />
+                                <SiFacebook />
                             </a>
-                        </div>
-                        <div className="mt-4">
-                            <p className="text-gray-600 text-sm">
-                                Sign up for our newsletter to receive updates and exclusive offers.
-                            </p>
-                            <form className="mt-2 flex">
-                                <input
-                                    type="email"
-                                    placeholder="Your email"
-                                    className="px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                                />
-                                <button
-                                    type="submit"
-                                    className="bg-primary-600 text-white px-4 py-2 rounded-r-md hover:bg-primary-700 transition-colors"
-                                >
-                                    Subscribe
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>

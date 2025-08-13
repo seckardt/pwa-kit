@@ -1,6 +1,8 @@
 'use client'
 
 import type {ReactElement} from 'react'
+import type {ShopperSearchTypes} from 'commerce-sdk-isomorphic'
+import {Checkbox} from '@/components/ui/checkbox'
 import type {FilterValue} from './types'
 
 export default function DefaultRefinement({
@@ -16,22 +18,33 @@ export default function DefaultRefinement({
 }): ReactElement {
     return (
         <div className="space-y-1 mt-2">
-            {values.map((value) => (
-                <label key={value.value} className="flex items-center">
-                    <input
-                        type="checkbox"
-                        checked={isFilterSelected(attributeId, value.value)}
-                        onChange={() => toggleFilter(attributeId, value.value)}
-                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500 h-4 w-4"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">
-                        {value.label || value.value}
+            {values.map((value: ShopperSearchTypes.ProductSearchRefinementValue, idx) => {
+                const id = `refine-${attributeId}-${idx}`
+                const isSelected = isFilterSelected(attributeId, value.value)
+
+                return (
+                    <label
+                        key={`${attributeId}:${value.value}`}
+                        htmlFor={id}
+                        className="flex items-center p-2 rounded-md hover:bg-gray-50 cursor-pointer"
+                    >
+                        <Checkbox
+                            id={id}
+                            checked={isSelected}
+                            onCheckedChange={() => toggleFilter(attributeId, value.value)}
+                            className="size-4"
+                        />
+                        <span className="ml-3 text-sm font-medium">
+                            {value.label || value.value}
+                        </span>
                         {value.hitCount !== undefined && (
-                            <span className="text-gray-500 ml-1">({value.hitCount})</span>
+                            <span className="ml-auto text-xs bg-gray-100 px-2 py-1 rounded-full">
+                                {value.hitCount}
+                            </span>
                         )}
-                    </span>
-                </label>
-            ))}
+                    </label>
+                )
+            })}
         </div>
     )
 }

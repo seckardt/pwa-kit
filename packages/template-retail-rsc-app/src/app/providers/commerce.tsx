@@ -1,6 +1,7 @@
 import type {PropsWithChildren, ReactElement} from 'react'
 import CommerceServerProvider from './commerce.server'
 import CommerceClientProvider from './commerce.client'
+import CartStoreProvider from './cart-store'
 import type {SessionData} from '@/app/utils/api/commerce-api'
 
 export type CommerceContext = {
@@ -16,7 +17,9 @@ export default function CommerceProvider({
 }: PropsWithChildren<{context: CommerceContext}>): ReactElement {
     return (
         <CommerceServerProvider context={context}>
-            <CommerceClientProvider context={context}>{children}</CommerceClientProvider>
+            <CommerceClientProvider context={context}>
+                <CartStoreProvider>{children}</CartStoreProvider>
+            </CommerceClientProvider>
         </CommerceServerProvider>
     )
 }

@@ -86,11 +86,7 @@ export default function NavigationDesktopClient({
     }, [location])
 
     return (
-        <div
-            className="hidden lg:flex relative"
-            onMouseLeave={handleNavigationLeave}
-            data-sfdc-origin="client"
-        >
+        <div className="hidden lg:flex relative" onMouseLeave={handleNavigationLeave}>
             <nav className="flex" aria-label="Main navigation" role="navigation">
                 <div className="flex flex-row items-start justify-start pl-4 w-full min-w-xs">
                     <div className="flex flex-row whitespace-nowrap flex-wrap space-x-0">

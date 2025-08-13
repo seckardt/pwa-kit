@@ -1,6 +1,7 @@
 'use client'
 
 import type {ReactElement} from 'react'
+import {Button} from '@/components/ui/button'
 import type {FilterValue} from './types'
 
 export default function RefineSize({
@@ -20,26 +21,19 @@ export default function RefineSize({
                 const isSelected = isFilterSelected(attributeId, value.value)
 
                 return (
-                    <button
-                        key={value.value}
+                    <Button
+                        key={`${attributeId}:${value.value}`}
+                        variant="outline"
                         onClick={() => toggleFilter(attributeId, value.value)}
-                        className={`px-3 py-2 text-sm font-medium rounded-md border transition-colors ${
-                            isSelected
-                                ? 'bg-gray-900 text-white border-gray-900'
-                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                        }`}
+                        className={`${isSelected ? 'border-gray-900' : ''}`}
                     >
                         {value.label || value.value}
                         {value.hitCount !== undefined && (
-                            <span
-                                className={`ml-1 text-xs ${
-                                    isSelected ? 'text-gray-300' : 'text-gray-500'
-                                }`}
-                            >
-                                ({value.hitCount})
+                            <span className="ml-auto text-xs bg-gray-100 px-2 py-1 rounded-full">
+                                {value.hitCount}
                             </span>
                         )}
-                    </button>
+                    </Button>
                 )
             })}
         </div>

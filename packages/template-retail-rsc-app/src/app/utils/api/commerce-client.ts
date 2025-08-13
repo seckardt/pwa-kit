@@ -66,7 +66,7 @@ export const getSlasClient = (): ShopperLogin<CommerceClientConfig> => {
 export const createShopperProductsClient = (session: SessionData) =>
     createClient(ShopperProducts, session)
 
-export const createShopperBasketClient = (session: SessionData) =>
+export const createShopperBasketsClient = (session: SessionData) =>
     createClient(ShopperBaskets, session)
 
 export const createShopperSearchClient = (session: SessionData) =>

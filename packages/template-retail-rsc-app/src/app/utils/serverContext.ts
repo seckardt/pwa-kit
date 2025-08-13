@@ -13,10 +13,17 @@ const {hasOwnProperty} = Object.prototype
 /**
  * This is a critical piece in the puzzle to allow nested server components - i.e., components that don't represent
  * pages that are directly referenced in React Router's config - their own asynchronous data retrieval process. Such
- * an independent component-level data retrieval capability will be required for e.g. Page Designer integrations.
+ * an independent component-level data retrieval capability will likely be required for e.g. Page Designer integrations,
+ * but will of course not be limited to that.
+ *
  * The tricky aspect consists of the fact that the server is a stateless entity, possibly serving multiple requests in
  * parallel. There's no official support in React Router yet to support such nested retrieval scenarios, neither such
- * a concept exists for Next.js. So the approach is inspired by other people's comparable demands:
+ * a concept exists for Next.js. The approach makes use of the {@link React.cache} method that got introduced for React
+ * Server Components (RSC). That method creates memoized functions for each server request, which is mentioned as a
+ * caveat in the React documentation, but it's actually exactly what saves us here.
+ *
+ * The approach is inspired by other people's prior art:
+ * @see {@link https://react.dev/reference/react/cache}
  * @see {@link https://github.com/markomitranic/nextjs-server-context-workshop/blob/main/src/CreateServerContext/createServerContext.ts}
  * @see {@link https://medium.com/homullus/cursed-server-context-patterns-in-next-js-14-64407c90fdd4}
  * @see {@link https://github.com/manvalls/server-only-context/blob/main/src/index.ts} Most simple approach using `cache`

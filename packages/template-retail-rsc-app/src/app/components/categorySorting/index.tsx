@@ -27,7 +27,7 @@ export default function CategorySorting({
     )
 
     return (
-        <div className="flex items-center space-x-2" data-sfdc-origin="client">
+        <div className="flex items-center space-x-2">
             <label htmlFor="sort" className="text-sm text-gray-600">
                 Sort by:
             </label>

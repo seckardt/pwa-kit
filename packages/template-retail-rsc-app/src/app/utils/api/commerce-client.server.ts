@@ -1,5 +1,4 @@
 import 'server-only'
-
 import type {ShopperProductsTypes, ShopperSearchTypes} from 'commerce-sdk-isomorphic'
 import type {SessionData} from '@/app/utils/api/commerce-api'
 import {createQueryClient} from '@/app/utils/api/commerce-client'

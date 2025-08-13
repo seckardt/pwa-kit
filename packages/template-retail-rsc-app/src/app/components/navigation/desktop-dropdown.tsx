@@ -100,7 +100,6 @@ export default function NavigationDesktopDropdown({
             style={{
                 gridTemplateColumns: `repeat(${Math.max(columnsToShow, 2)}, minmax(0, 21%))`
             }}
-            data-sfdc-origin="client"
         >
             {isLoading || isFetching
                 ? // Show loading placeholders

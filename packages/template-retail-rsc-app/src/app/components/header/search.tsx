@@ -1,43 +1,41 @@
 'use client'
 
-import {type ChangeEvent, type FormEvent, type ReactElement, useCallback, useState} from 'react'
-import {useLocation, useNavigate} from 'react-router'
-import {Search} from '@/app/components/icons'
+import {type FormEvent, type ReactElement, useCallback, useRef} from 'react'
+import {useNavigate} from 'react-router'
+import {Input} from '@/components/ui/input'
+import {Search} from 'lucide-react'
 
+/**
+ * @see {@link https://github.com/shadcn-ui/ui/discussions/1552}
+ */
 export default function SearchBar(): ReactElement {
-    const location = useLocation()
     const navigate = useNavigate()
-    const [query, setQuery] = useState(location?.state?.query ?? '')
+    const inputRef = useRef<HTMLInputElement | null>(null)
 
     const handleSubmit = useCallback(
         (e: FormEvent) => {
             e.preventDefault()
-            if (query.trim()) {
-                setQuery('')
+            if (inputRef.current?.value?.trim()) {
+                const query = inputRef.current.value
                 navigate(`/search?q=${encodeURIComponent(query)}`, {
                     state: {query}
                 })
             }
         },
-        [location, query]
+        [inputRef]
     )
 
     return (
-        <form onSubmit={handleSubmit} className="relative" data-sfdc-origin="client">
-            <input
-                type="text"
-                placeholder="Search for products..."
-                value={query}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            />
-            <button
-                type="submit"
-                className="absolute left-0 top-0 p-2 text-gray-500"
-                aria-label="Search"
-            >
-                <Search className="w-5 h-5" />
-            </button>
+        <form onSubmit={handleSubmit} className="relative">
+            <div className="relative">
+                <Input
+                    ref={inputRef}
+                    type="text"
+                    placeholder="Search"
+                    className="peer w-full pl-10"
+                />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+            </div>
         </form>
     )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import type {ReactElement} from 'react'
+import {Button} from '@/components/ui/button'
 import type {FilterValue} from './types'
 
 const mapColorNameToHex = (colorName: string): string | null => {
@@ -46,21 +47,20 @@ export default function RefineColor({
                 const isSelected = isFilterSelected(attributeId, value.value)
 
                 return (
-                    <button
-                        key={value.value}
+                    <Button
+                        key={`${attributeId}:${value.value}`}
+                        variant="outline"
                         onClick={() => toggleFilter(attributeId, value.value)}
-                        className={`flex items-center w-full p-2 rounded-md border transition-all ${
+                        className={`${
                             isSelected
-                                ? 'bg-gray-50 border-gray-900'
-                                : 'border-gray-200 hover:bg-gray-50 hover:border-gray-300'
+                                ? 'border-gray-900'
+                                : ''
                         }`}
                     >
                         {/* Color Circle */}
                         <div
-                            className={`relative h-5 w-5 rounded-full border-2 flex-shrink-0 ${
-                                isSelected
-                                    ? 'border-gray-900'
-                                    : 'border-gray-300'
+                            className={`relative size-4 rounded-full border-1 flex-shrink-0 ${
+                                isSelected ? 'border-gray-900' : 'border-gray-300'
                             }`}
                             style={{backgroundColor: color || '#e5e7eb'}}
                         >
@@ -68,7 +68,9 @@ export default function RefineColor({
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div
                                         className={`w-1.5 h-1.5 rounded-full ${
-                                            color === '#ffffff' || !color ? 'bg-gray-800' : 'bg-white'
+                                            color === '#ffffff' || !color
+                                                ? 'bg-gray-800'
+                                                : 'bg-white'
                                         }`}
                                     />
                                 </div>
@@ -76,17 +78,17 @@ export default function RefineColor({
                         </div>
 
                         {/* Color Name and Hit Count */}
-                        <div className="flex items-center justify-between flex-1 ml-2 min-w-0">
-                            <span className="text-sm text-gray-700 font-medium truncate">
+                        <div className="flex items-center justify-between flex-1 min-w-0">
+                            <span className="text-sm font-medium truncate">
                                 {value.label || value.value}
                             </span>
                             {value.hitCount !== undefined && (
-                                <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-full ml-1 flex-shrink-0">
+                                <span className="ml-auto text-xs bg-gray-100 px-2 py-1 rounded-full">
                                     {value.hitCount}
                                 </span>
                             )}
                         </div>
-                    </button>
+                    </Button>
                 )
             })}
         </div>

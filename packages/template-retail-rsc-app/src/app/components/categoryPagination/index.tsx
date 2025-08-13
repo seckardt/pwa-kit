@@ -2,8 +2,9 @@
 
 import {type JSX, useCallback, useMemo} from 'react'
 import {useLocation, useNavigate} from 'react-router'
-import {ChevronLeft, ChevronRight} from '@/app/components/icons'
 import type {ShopperSearchTypes} from 'commerce-sdk-isomorphic'
+import {Button} from '@/components/ui/button'
+import {ChevronLeft, ChevronRight} from 'lucide-react'
 
 export default function CategoryPagination({
     limit,
@@ -71,17 +72,18 @@ export default function CategoryPagination({
     }
 
     return (
-        <div className="flex justify-center" data-sfdc-origin="client">
+        <div className="flex justify-center">
             <nav className="flex items-center space-x-1" aria-label="Pagination">
                 {/* Previous button */}
-                <button
+                <Button
+                    variant="outline"
+                    className="size-9 cursor-pointer"
                     onClick={() => navigatePage(current - 1)}
                     disabled={current <= 1}
-                    className="px-2 py-2 rounded-md border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                     aria-label="Previous page"
                 >
                     <ChevronLeft />
-                </button>
+                </Button>
 
                 {/* Page numbers */}
                 {pageNumbers.map((page, index) =>
@@ -90,31 +92,30 @@ export default function CategoryPagination({
                             ...
                         </span>
                     ) : (
-                        <button
+                        <Button
                             key={page}
                             onClick={() => navigatePage(page)}
-                            className={`px-4 py-2 rounded-md border ${
-                                current === page
-                                    ? 'bg-primary-600 text-gray-700 border-primary-600'
-                                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                            }`}
+                            disabled={current === page}
+                            variant="outline"
+                            className="size-9 cursor-pointer"
                             aria-label={`Page ${page}`}
                             aria-current={current === page ? 'page' : undefined}
                         >
                             {page}
-                        </button>
+                        </Button>
                     )
                 )}
 
                 {/* Next button */}
-                <button
+                <Button
+                    variant="outline"
+                    className="size-9 cursor-pointer"
                     onClick={() => navigatePage(current + 1)}
                     disabled={current === total}
-                    className="px-2 py-2 rounded-md border border-gray-300 text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                     aria-label="Next page"
                 >
                     <ChevronRight />
-                </button>
+                </Button>
             </nav>
         </div>
     )

@@ -1,6 +1,6 @@
-import {helpers, type ShopperLoginTypes} from 'commerce-sdk-isomorphic'
 import type {Session} from 'react-router'
 import {createCookieSessionStorage} from 'react-router'
+import {helpers, type ShopperLoginTypes} from 'commerce-sdk-isomorphic'
 import {getClientConfig, getSlasClient} from '@/app/utils/api/commerce-client'
 
 export type SessionData = {
@@ -8,6 +8,7 @@ export type SessionData = {
     accessTokenExpiry?: number
     refreshToken?: string
     refreshTokenExpiry?: number
+    basketId?: string
 }
 
 type SessionFlashData = {

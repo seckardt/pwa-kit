@@ -4,7 +4,8 @@ import type {JSX} from 'react'
 import {useCallback, useMemo} from 'react'
 import {useLocation, useNavigate} from 'react-router'
 import type {ShopperSearchTypes} from 'commerce-sdk-isomorphic'
-import {Close} from '@/app/components/icons'
+import {Button} from '@/components/ui/button'
+import {X as Close} from 'lucide-react'
 import {toRefinesMap, toSearchParams} from './utils'
 
 // Get human-readable label for a specific value
@@ -89,28 +90,30 @@ export default function CategoryFilters({
     }
 
     return (
-        <div className="mb-4 border-b" data-sfdc-origin="client">
-            <div className="mb-2 text-sm font-medium text-gray-700">Active filters:</div>
+        <div className="mb-4 border-b">
+            <p className="mb-2 font-medium">Active filters:</p>
             <div className="mb-2 flex flex-wrap items-center gap-2">
                 {activeFilters.map(({attributeId, value, valueLabel}) => (
-                    <button
-                        key={`${attributeId}-${value}`}
+                    <Button
+                        key={`${attributeId}:${value}`}
+                        variant="outline"
+                        className="cursor-pointer"
                         onClick={() => removeFilter(attributeId, value)}
-                        className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-300 hover:bg-gray-200 transition-colors cursor-pointer"
                     >
-                        <Close className="text-lg" />
+                        <Close className="size-3" />
                         <span className="ml-1">{valueLabel}</span>
-                    </button>
+                    </Button>
                 ))}
             </div>
 
             <div className="mb-4">
-                <button
+                <Button
+                    variant="link"
+                    className="m-0 p-0 cursor-pointer underline text-sm text-destructive hover:text-destructive/75"
                     onClick={clearAllFilters}
-                    className="text-sm text-orange-600 hover:text-orange-800 underline transition-colors cursor-pointer"
                 >
                     Clear all
-                </button>
+                </Button>
             </div>
         </div>
     )

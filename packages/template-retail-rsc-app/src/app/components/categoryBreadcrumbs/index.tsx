@@ -1,7 +1,7 @@
 import type {ReactElement} from 'react'
 import {Link} from 'react-router'
 import type {ShopperProductsTypes} from 'commerce-sdk-isomorphic'
-import {ChevronRight} from '@/app/components/icons'
+import {ChevronRight} from 'lucide-react'
 
 type PathRecord = Required<ShopperProductsTypes.Category>['parentCategoryTree'][0]
 
@@ -18,7 +18,7 @@ export default function CategoryBreadcrumbs({
             <ol className="flex flex-wrap items-center text-sm">
                 {items.map((item, index) => (
                     <li key={item.id} className="flex items-center">
-                        {index > 0 && <ChevronRight className="mx-1" />}
+                        {index > 0 && <ChevronRight className="mx-1 size-3" />}
 
                         <Link
                             to={`/category/${item.id}`}

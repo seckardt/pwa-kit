@@ -1,9 +1,8 @@
-'use client'
-
 import type {ReactElement} from 'react'
 import {Link} from 'react-router'
-import {ChevronDown} from '@/app/components/icons'
 import type {ShopperProductsTypes} from 'commerce-sdk-isomorphic'
+import {Button} from '@/components/ui/button'
+import {ChevronDown} from 'lucide-react'
 
 interface NavigationItemProps {
     category: ShopperProductsTypes.Category
@@ -19,11 +18,7 @@ export default function NavigationItem({
     const hasSubCategories = category.onlineSubCategoriesCount > 0
 
     return (
-        <div
-            className="relative flex items-center"
-            onMouseEnter={onMouseEnter}
-            data-sfdc-origin="client"
-        >
+        <div className="relative flex items-center" onMouseEnter={onMouseEnter}>
             <Link
                 to={`/category/${category.id}`}
                 className={`
@@ -41,12 +36,13 @@ export default function NavigationItem({
             </Link>
 
             {hasSubCategories && (
-                <button
-                    className="ml-0 mt-3 mr-3 mb-2 hover:no-underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                <Button
+                    variant="ghost"
+                    className="hover:bg-transparent"
                     aria-label={`${category.name} submenu`}
                 >
-                    <ChevronDown className="w-4 h-4 text-gray-600" />
-                </button>
+                    <ChevronDown className="size-4" />
+                </Button>
             )}
         </div>
     )

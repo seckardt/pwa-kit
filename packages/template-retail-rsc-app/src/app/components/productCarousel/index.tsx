@@ -1,9 +1,16 @@
-import type {ReactElement} from 'react'
+import type {ReactNode} from 'react'
 import {getServerContext} from '@/app/utils/serverContext'
 import {CommerceServerContext} from '@/app/providers/commerce.server'
 import {fetchSearchProducts} from '@/app/utils/api/commerce-client.server'
-import ProductCarouselControls from './controls'
-import ProductCarouselContent from './content'
+
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious
+} from '@/components/ui/carousel'
+import ProductCard from '@/app/components/productCard'
 
 /**
  * This carousel component illustrates the concept of a component that independently loads the data
@@ -15,7 +22,7 @@ import ProductCarouselContent from './content'
  * fully static server-rendered content as well.
  * @see {@link https://sandroroth.com/blog/react-slots/}
  */
-export default async function ProductCarousel({title}: {title?: string}): Promise<ReactElement> {
+export default async function ProductCarousel({title}: {title?: string}): Promise<ReactNode> {
     const context = getServerContext(CommerceServerContext)
     if (!context?.session) {
         throw new Error('Unexpected State: No commerce context provided.')
@@ -27,16 +34,36 @@ export default async function ProductCarousel({title}: {title?: string}): Promis
     })
     const products = searchResult.hits ?? []
 
-    return (
-        <ProductCarouselControls title={title}>
-            <ProductCarouselContent products={products}></ProductCarouselContent>
+    if (products.length === 0) {
+        return null
+    }
 
-            {/* Show a message when no products are found */}
-            {products.length === 0 && (
-                <div className="text-center py-12" data-sfdc-origin="server">
-                    <p className="text-lg text-gray-500">No products found.</p>
-                </div>
-            )}
-        </ProductCarouselControls>
+    return (
+        <>
+            {title && <h2 className="text-2xl font-bold pb-4">{title}</h2>}
+
+            <Carousel
+                opts={{
+                    align: 'start',
+                    // loop: true,
+                    slidesToScroll: 'auto'
+                }}
+            >
+                <CarouselContent className="-ml-1">
+                    {products.map((product) => (
+                        <CarouselItem
+                            key={product.productId}
+                            className="pl-1 sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+                        >
+                            <div className="flex-none w-60 md:w-72 snap-start">
+                                <ProductCard product={product} />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+        </>
     )
 }
