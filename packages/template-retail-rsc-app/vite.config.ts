@@ -9,11 +9,53 @@ import devtoolsJson from 'vite-plugin-devtools-json'
 
 /**
  * @see {@link https://vite.dev/config/}
+ * @see {@link https://github.com/http-party/node-http-proxy?tab=readme-ov-file#modify-response}
  */
 export default defineConfig({
     server: {
         proxy: {
-            '/mobify/proxy/api': 'http://localhost:3000'
+            // Proxy Commerce Cloud API requests directly to your instance
+            '/mobify/proxy/api': {
+                target: 'https://8o7m175y.api.commercecloud.salesforce.com',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/mobify\/proxy\/api/, ''),
+                configure: (proxy, _options) => {
+                    proxy.on('proxyReq', (proxyReq, req) => {
+                        console.log(
+                            '🔄 Proxying request:',
+                            req.method,
+                            req.url,
+                            '→',
+                            proxyReq.getHeader('host') + proxyReq.path
+                        )
+                    })
+                    proxy.on('proxyRes', (proxyRes, req) => {
+                        if (
+                            typeof proxyRes.statusCode === 'number' &&
+                            proxyRes.statusCode >= 200 &&
+                            proxyRes.statusCode <= 399
+                        ) {
+                            console.log('✅ Proxy response:', proxyRes.statusCode, req.url)
+                        } else {
+                            const body: Buffer[] = []
+                            proxyRes.on('data', (chunk: Buffer) => {
+                                body.push(chunk)
+                            })
+                            proxyRes.on('end', () => {
+                                console.log(
+                                    '❌ Proxy error:',
+                                    proxyRes.statusCode,
+                                    req.url,
+                                    Buffer.concat(body).toString()
+                                )
+                            })
+                        }
+                    })
+                    proxy.on('error', (err, req) => {
+                        console.error('❌ Proxy error:', err.message, req.url)
+                    })
+                }
+            }
         }
     },
     plugins: [

@@ -16,7 +16,7 @@ export default function Loading() {
 
     useEffect(() => {
         timeout.current && clearTimeout(timeout.current)
-        if (navigation.state === 'idle') {
+        if (navigation?.state === 'idle') {
             setShowLoader(false)
         } else {
             timeout.current = setTimeout(() => setShowLoader(false), 150)
@@ -26,7 +26,7 @@ export default function Loading() {
             timeout.current && clearTimeout(timeout.current)
             setShowLoader(false)
         }
-    }, [navigation.state])
+    }, [navigation?.state])
 
     if (showLoader) {
         return (
